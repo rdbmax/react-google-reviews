@@ -13,7 +13,8 @@
     "reviews",
     "google reviews",
     "google places",
-    "google my business"
+    "google my business",
+    "google maps"
   ],
   "author": "Ryan Chiang <ryan@featurable.com> (https://featurable.com)",
   "homepage": "https://github.com/ryanschiang/react-google-reviews#readme",
