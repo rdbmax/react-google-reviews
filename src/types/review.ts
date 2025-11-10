@@ -9,50 +9,103 @@ export type GoogleReview = {
     comment: string;
     createTime: string | null;
     updateTime: string | null;
-    reviewReply?: {
-        comment: string;
-        updateTime: string;
-    } | null;
 };
 
 // Force type into value space to avoid type-only export incompatibility
 export const GoogleReview = {};
 
-export type NameDisplay =
-    | "fullNames"
-    | "firstAndLastInitials"
-    | "firstNamesOnly";
+export type GoogleReviewV2 = {
+    id: string;
+    platform: string;
 
-export type LogoVariant = "icon" | "full" | "none";
+    author?: {
+        name?: string | null;
+        avatarUrl?: string | null;
+        photoUrl?: string | null;
+    } | null;
 
-export type DateDisplay = "relative" | "absolute" | "none";
+    title?: string | null;
+    text: string;
+    originalText?: string | null;
+    languageCode?: string | null;
 
-export type ReviewVariant = "testimonial" | "card";
+    rating?: {
+        value: number;
+        max: number;
+    } | null;
 
-export type Theme = "light" | "dark";
+    publishedAt: string;
+    updatedAt?: string | null;
+    createdAt: string;
+    lastSyncedAt?: string | null;
 
-interface FeaturableAPIResponseBase {
+    metadata?: Record<string, unknown> | null;
+    url?: string | null;
+};
+
+// Force type into value space to avoid type-only export incompatibility
+export const GoogleReviewV2 = {};
+
+export type NameDisplay = 'fullNames' | 'firstAndLastInitials' | 'firstNamesOnly';
+
+export type LogoVariant = 'icon' | 'full' | 'none';
+
+export type DateDisplay = 'relative' | 'absolute' | 'none';
+
+export type ReviewVariant = 'testimonial' | 'card';
+
+export type Theme = 'light' | 'dark';
+
+interface FeaturableAPIResponseV1Base {
     success: boolean;
 }
 
-interface FeaturableAPIResponseSuccess
-    extends FeaturableAPIResponseBase {
+interface FeaturableAPIResponseV1Success extends FeaturableAPIResponseV1Base {
     success: true;
     profileUrl: string | null;
-    batchSize: number;
     totalReviewCount: number;
     averageRating: number;
     reviews: GoogleReview[];
 }
 
-interface FeaturableAPIResponseError
-    extends FeaturableAPIResponseBase {
+interface FeaturableAPIResponseV1Error extends FeaturableAPIResponseV1Base {
     success: false;
 }
 
-export type FeaturableAPIResponse =
-    | FeaturableAPIResponseSuccess
-    | FeaturableAPIResponseError;
+export type FeaturableAPIResponseV1 = FeaturableAPIResponseV1Success | FeaturableAPIResponseV1Error;
+
+// Force type into value space to avoid type-only export incompatibility
+export const FeaturableAPIResponseV1 = {} as const;
+
+interface FeaturableAPIResponseV2Base {
+    success: boolean;
+}
+
+interface FeaturableAPIResponseV2Success extends FeaturableAPIResponseV2Base {
+    success: true;
+    widget: {
+        gbpLocationSummary: {
+            reviewsCount: number;
+            rating: number;
+            writeAReviewUri: string;
+        };
+        reviews: GoogleReviewV2[];
+    };
+}
+
+interface FeaturableAPIResponseV2Error extends FeaturableAPIResponseV2Base {
+    success: false;
+}
+
+export type FeaturableAPIResponseV2 = FeaturableAPIResponseV2Success | FeaturableAPIResponseV2Error;
+
+// Force type into value space to avoid type-only export incompatibility
+export const FeaturableAPIResponseV2 = {} as const;
+
+export type FeaturableAPIResponse = FeaturableAPIResponseV1 | FeaturableAPIResponseV2;
 
 // Force type into value space to avoid type-only export incompatibility
 export const FeaturableAPIResponse = {} as const;
+
+// Widget version type
+export type WidgetVersion = 'v1' | 'v2';

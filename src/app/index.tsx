@@ -6,7 +6,7 @@ const root = createRoot(container);
 
 root.render(
     <div>
-        <h1>Component Development Environment</h1>
+        <h1>react-google-reviews</h1>
 
         <h2>Carousel v1:</h2>
         <ReactGoogleReviews featurableId="example" layout="carousel" widgetVersion="v1" />
