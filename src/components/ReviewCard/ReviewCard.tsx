@@ -96,7 +96,7 @@ const footer = css`
     margin-top: 16px;
 `;
 
-type ReviewCardProps = {
+type ReviewCardBaseProps = {
     review: GoogleReview;
     maxCharacters?: number;
     nameDisplay?: NameDisplay;
@@ -110,7 +110,9 @@ type ReviewCardProps = {
     getRelativeDate?: (date: Date) => string;
 };
 
-export const ReviewCard: FC<ReviewCardProps & ReviewCardCSSProps> = ({
+export type ReviewCardProps = ReviewCardBaseProps & ReviewCardCSSProps
+
+export const ReviewCard: FC<ReviewCardProps> = ({
     review,
     maxCharacters = 200,
     nameDisplay = "firstAndLastInitials",
